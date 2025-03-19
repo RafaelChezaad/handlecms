@@ -1,89 +1,118 @@
-import React, { useState } from 'react';
-import axiosClient from '../axiosClient'; // Asegúrate de que la configuración de Axios esté correcta
-import Styles from '../css/Login.module.css';
-import Logo from '../assets/Logo.webp';
+import React, { useState } from "react";
+import axios from "axios";
+import Logo from "../assets/Logo.webp";
+import Style from "../css/Login.module.css";
+import { useNavigate } from "react-router-dom";
+// import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi";
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+function Login() {
+  const ApiUrl ='https://teamelizabethmartinez.com/?rest_route=/simple-jwt-login/v1/auth';
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    AUTH_KEY: "teamkey",
+  });
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-  
-    try {
-      const response = await axiosClient.post(
-        'wp-json/jwt-auth/v1/token',
-         // No se envían datos en el cuerpo
-        {
-          params: {
-            email, // WordPress permite autenticación con email o username
-            password,
-            AUTH_CODE: "teamkey",
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-          },
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-  
-      // Guardar el token
-      localStorage.setItem('authToken', response.data.data.jwt);
-      console.log('Login successful');
-      setLoading(false);
-  
-      // Redirigir si es necesario
-      // window.location.href = "/dashboard";
-    } catch (err) {
-      setLoading(false);
-      setError('Error al iniciar sesión: ' + (err.response?.data?.message || err.message));
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { email: "", password: "" };
+
+    if (!formData.email) {
+      newErrors.email = "Por favor ingresa un correo electrónico.";
+      isValid = false;
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Por favor ingresa una contraseña.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const response = await axios.post(`${ApiUrl}`, formData);
+      const token = response.data.data.jwt;
+
+      localStorage.setItem("authToken", token);
+      navigate("/");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      setErrors({
+        email: "Las credenciales ingresadas son incorrectas.",
+        password: "Las credenciales ingresadas son incorrectas.",
+      });
     }
   };
-  
 
   return (
-    <div className={Styles.container}>
-      <img
-        src={Logo}
-        alt="Logo Remax"
-        title="Remax"
-        width={80}
-        height={50}
-        className={Styles.logo}
-      />
-      <form onSubmit={handleLogin} className={Styles.form}>
-        <input
-          type="email"
-          placeholder="Digita tu correo"
-          className={Styles.input}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          className={Styles.input}
-          placeholder="Digita tu contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className={Styles.button}
-          aria-label="Iniciar Sesión"
-        >
-          {loading ? 'Loggeando...' : 'Acceder'}
-        </button>
-      </form>
-      {error && <p className={Styles.error}>{error}</p>}
+    <div className={Style.container}>
+      <div className="inner-container">
+       
+        <img className={Style.logo} src={Logo} alt="Logo del remax"  />
+        <form onSubmit={handleSubmit} className={Style.form}>
+              <input
+                type="email"
+                id="email-address"
+                name="email"
+                required
+                className={Style.input}
+                placeholder="Correo electrónico"
+                value={formData.email}
+                onChange={handleChange}
+              />
+          
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                className={Style.input}
+                
+                placeholder="************"
+                value={formData.password}
+                onChange={handleChange}
+              />   
+         
+            <button type="submit" className={Style.button}>
+              Iniciar sesión
+            </button>
+            <div className="flex justify-center">
+              {loading && (
+                <div className="loading-overlay">
+                  <div className="loading-spinner"></div>
+                </div>
+              )}
+            </div>
+          
+        </form>
+      </div>
     </div>
   );
-};
+}
 
 export default Login;

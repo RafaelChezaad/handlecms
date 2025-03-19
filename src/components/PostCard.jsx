@@ -3,20 +3,15 @@ import Styles from '../css/PostCard.module.css';
 
 const PostCard = ({ post, onEdit, onDelete }) => {
   return (
-    <div className={Styles.card}>
-      <img src={post.featuredImage.url} alt={post.title} className={Styles.image} />
-      <h3 className={Styles.title}>{post.title}</h3>
-      <p className={Styles.excerpt}>{post.excerpt}</p>
-      <div className={Styles.actions}>
-        <button className={Styles.editButton} onClick={() => onEdit(post.id)}>
-          Editar
-        </button>
-        <button className={Styles.deleteButton} onClick={() => onDelete(post.id)}>
-          Borrar
-        </button>
-      </div>
+    <div>
+      <h3>{post.title.rendered}</h3> {/* Asegúrate de acceder a .rendered si es un objeto */}
+      <p>{post.excerpt.rendered}</p> {/* De nuevo, verifica que sea .rendered */}
+      <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} /> {/* Renderiza el HTML seguro si es necesario */}
+      <button onClick={() => onEdit(post.id)}>Edit</button>
+      <button onClick={() => onDelete(post.id)}>Delete</button>
     </div>
   );
 };
+
 
 export default PostCard;

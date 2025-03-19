@@ -30,7 +30,12 @@ axiosClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Si el token es inválido o expira, puedes redirigir al login
       console.error("Token inválido o expirado.");
-      // Aquí puedes agregar lógica para redirigir al login o eliminar el token
+      localStorage.removeItem("authToken"); // Elimina el token expirado
+
+      // Redirigir al login si usas React Router:
+      // window.location.href = '/login'; // O con useNavigate() si lo estás usando en un componente React
+
+      // Aquí puedes también mostrar un mensaje al usuario si lo deseas
     }
     return Promise.reject(error);
   }

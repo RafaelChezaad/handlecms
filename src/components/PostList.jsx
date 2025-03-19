@@ -1,36 +1,48 @@
 import React, { useEffect, useState } from 'react';
-import axiosClient from '../axiosClient'; // Axios con la configuración de tu API
+import axios from 'axios';
 import PostCard from './PostCard'; // Componente de card
 import Styles from '../css/PostList.module.css';
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
+  const token = localStorage.getItem('authToken');
 
   useEffect(() => {
     // Función para obtener los posts de WordPress
     const fetchPosts = async () => {
+      if (!token) {
+        console.error("No token found.");
+        return;
+      }
       try {
-        const response = await axiosClient.get('/wp-json/wp/v2/posts');
+        const response = await axios.get('https://teamelizabethmartinez.com/wp-json/wp/v2/posts/', {
+          headers: {
+            Authorization: `Bearer ${token}` // Asegúrate de que el token esté en los encabezados
+          }
+        });
         setPosts(response.data); // Asignar los posts al estado
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching posts:', error.response ? error.response.data : error.message);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [token]); // Dependencia de token
 
   const handleEdit = (postId) => {
     console.log('Edit post with ID:', postId);
-    // Aquí puedes redirigir a la página de edición de post o mostrar el formulario
   };
 
   const handleDelete = async (postId) => {
     try {
-      await axiosClient.delete(`/wp-json/wp/v2/posts/${postId}`);
-      setPosts(posts.filter(post => post.id !== postId)); // Eliminar el post de la lista
+      await axios.delete(`https://teamelizabethmartinez.com/wp-json/wp/v2/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
     } catch (error) {
-      console.error('Error deleting post:', error);
+      console.error('Error deleting post:', error.response ? error.response.data : error.message);
     }
   };
 
@@ -53,3 +65,5 @@ const PostList = () => {
 };
 
 export default PostList;
+
+

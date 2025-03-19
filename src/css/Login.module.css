@@ -7,7 +7,22 @@
   border-radius: 1em;
   background-color: #aa9d89;
 }
-
+.passwordContainer {
+    position: relative;
+  }
+  
+  .showPasswordButton {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
 /* cambios actuales */
 .logo{
   width: 300px;
