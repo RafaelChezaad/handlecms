@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosClient from '../axiosClient'; // Asegúrate de que la configuración de Axios esté correcta
 import Styles from '../css/Login.module.css';
-import Logo from '../assets/logo.webp';
+import Logo from '../assets/Logo.webp';
 
 const Login = () => {
   const [username, setUsername] = useState('');
