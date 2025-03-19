@@ -1,0 +1,49 @@
+.card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .excerpt {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .actions {
+    margin-top: 10px;
+  }
+  
+  .editButton, .deleteButton {
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .editButton {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .deleteButton {
+    background-color: #f44336;
+    color: white;
+  }
+  
