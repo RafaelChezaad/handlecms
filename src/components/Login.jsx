@@ -15,9 +15,10 @@ const Login = () => {
     setError(null); // Reseteamos los posibles errores previos
 
     try {
-      const response = await axiosClient.post('/jwt-auth/v1/token', {
+      const response = await axiosClient.post('/simple-jwt-login/v1/auth', {
         username,
         password,
+        AUTH_KEY:'chezaadkey'
       });
 
       // Si la autenticación es exitosa, guardamos el token en el localStorage

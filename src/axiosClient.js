@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Crear una instancia de Axios
 const axiosClient = axios.create({
-  baseURL: 'https://teamelizabethmartinez.com/wp-json', // URL base de la API REST de WordPress
+  baseURL: 'https://teamelizabethmartinez.com/', // URL base de la API REST de WordPress
 });
 
 // Interceptor para agregar el token JWT en las cabeceras de cada solicitud
