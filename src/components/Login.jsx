@@ -4,35 +4,46 @@ import Styles from '../css/Login.module.css';
 import Logo from '../assets/Logo.webp';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true); // Inicia el estado de carga
-    setError(null); // Reseteamos los posibles errores previos
-
+    setLoading(true);
+    setError(null);
+  
     try {
-      const response = await axiosClient.post('/simple-jwt-login/v1/auth', {
-        username,
-        password,
-        AUTH_KEY:'chezaadkey'
-      });
+      const response = await axiosClient.post(
+        'wp-json/jwt-auth/v1/token',
+         // No se envían datos en el cuerpo
+        {
+          params: {
+            email, // WordPress permite autenticación con email o username
+            password,
+            AUTH_CODE: "teamkey",
 
-      // Si la autenticación es exitosa, guardamos el token en el localStorage
-      localStorage.setItem('authToken', response.data.token);
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      // Guardar el token
+      localStorage.setItem('authToken', response.data.data.jwt);
       console.log('Login successful');
       setLoading(false);
-
-      // Aquí puedes redirigir al dashboard o página principal, si lo deseas
-      // window.location.href = "/dashboard"; // Si deseas redirigir programáticamente
+  
+      // Redirigir si es necesario
+      // window.location.href = "/dashboard";
     } catch (err) {
       setLoading(false);
-      setError('Error al iniciar sesión: ' + err.message);
+      setError('Error al iniciar sesión: ' + (err.response?.data?.message || err.message));
     }
   };
+  
 
   return (
     <div className={Styles.container}>
@@ -46,11 +57,11 @@ const Login = () => {
       />
       <form onSubmit={handleLogin} className={Styles.form}>
         <input
-          type="text"
+          type="email"
           placeholder="Digita tu correo"
           className={Styles.input}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
