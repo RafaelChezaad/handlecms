@@ -38,6 +38,13 @@ body{
 
 }
 
+@media screen and (max-width:576px){
+  .boxed{
+    justify-content: space-around;
+  }
+  
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
