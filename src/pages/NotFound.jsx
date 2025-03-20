@@ -19,7 +19,7 @@ const NotFound = () => {
                 transition={{ delay: 0.5, duration: 0.5 }}
                 style={styles.message}
             >
-                Oops! The page you're looking for doesn't exist.
+                ¡Uy! La página que busca no existe.
             </motion.p>
             <motion.div
                 initial={{ opacity: 0 }}
@@ -27,7 +27,7 @@ const NotFound = () => {
                 transition={{ delay: 1, duration: 0.5 }}
             >
                 <Link to="/" style={styles.link}>
-                    Go Back Home
+                    Volver al inicio
                 </Link>
             </motion.div>
         </div>

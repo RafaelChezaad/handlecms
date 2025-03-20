@@ -1,0 +1,102 @@
+.card {
+    max-width: 380px;
+    width: 90%; /* Se adapta a pantallas más pequeñas */
+    margin: 10px auto; /* Centrar tarjetas */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .body {
+    padding: 0.5rem;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    filter: brightness(0.9);
+    cursor: pointer;
+    object-fit: cover; /* Mantiene proporciones sin distorsión */
+    transition: all 0.3s ease-in-out; /* Suaviza cualquier cambio */
+  }
+  
+  .image:hover {
+    filter: brightness(1);
+    transform: scale(1.05); /* Un poco menos de escala para que no se vea exagerado */
+  }
+  
+  .title {
+    font-size: 1.2em;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: justify;
+    margin: 0.5rem 0;
+    text-transform: capitalize;
+  }
+  
+  .excerpt {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: justify;
+    font-style: italic;
+  }
+  
+  .actions {
+    display: flex;
+    width: 100%;
+    justify-content: center; /* Mejor distribución en pantallas pequeñas */
+    align-items: center;
+  
+  }
+  
+
+
+  
+  .restoreButton {
+    background-color: #003da6;
+    padding: 8px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    flex: 1; /* Hace que los botones se ajusten mejor en móviles */
+    text-align: center;
+    color: white;
+  }
+  
+  /* ✅ Estilos RESPONSIVE */
+  
+  /* Para tablets (pantallas medianas) */
+  @media (max-width: 768px) {
+    .card {
+        max-width: 95%;
+    }
+    .title {
+        font-size: 1rem;
+    }
+    .excerpt {
+        font-size: 0.85rem;
+    }
+   
+  }
+  
+  /* Para móviles pequeños */
+  @media (max-width: 480px) {
+    .card {
+        max-width: 60%;
+    }
+    .title {
+        font-size: 0.9rem;
+    }
+    .excerpt {
+        font-size: 0.8rem;
+    }
+  
+  }
+  

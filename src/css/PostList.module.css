@@ -4,6 +4,80 @@
     justify-content: center;
     gap: 1rem;
   }
+  /* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+  }
+  
+  .modalButtonYes {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #003da5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .modalButtonNo {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #dc1c2c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .modalButtonYes:hover {
+    background-color: #dc1c2c56;
+  }
+  .modalButtonNo:hover {
+    background-color: #003ca5ca;
+  }
+  /* Botón de restaurar */
+.restoreButton {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .restoreButton:hover {
+    background-color: #45a049;
+  }
+  /* Botón de publicar */
+.publishButton {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .publishButton:hover {
+    background-color: #45a049;
+  }
+  
   
 
   @media screen and (max-width: 576px){

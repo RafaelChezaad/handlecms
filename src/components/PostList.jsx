@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PostCard from "./PostCard"; // Componente de card
 import Styles from "../css/PostList.module.css";
+import { useNavigate } from "react-router-dom"; // Importar useNavigate
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("authToken"));
   const [loading, setLoading] = useState(true); // Estado para cargar
   const [error, setError] = useState(""); // Estado para error
+  const [showModal, setShowModal] = useState(false); // Estado para mostrar el modal
+  const [postToDelete, setPostToDelete] = useState(null); // Estado para almacenar el post que se va a eliminar
+  const navigate = useNavigate(); // Usar useNavigate para la navegación
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,17 +52,23 @@ const PostList = () => {
 
   const handleEdit = (postId) => {
     console.log("✏️ Editando post con ID:", postId);
+    navigate(`/edit-post/${postId}`); // Usar navigate para redirigir
   };
 
-  const handleDelete = async (postId) => {
-    if (!token) {
-      console.error("❌ No hay token para eliminar");
+  const handleDeleteRequest = (postId) => {
+    setPostToDelete(postId);
+    setShowModal(true); // Muestra el modal de confirmación
+  };
+
+  const handleDelete = async () => {
+    if (!token || !postToDelete) {
+      console.error("❌ No hay token o no se seleccionó post para eliminar");
       return;
     }
 
     try {
       await axios.delete(
-        `https://teamelizabethmartinez.com/wp-json/wp/v2/posts/${postId}`,
+        `https://teamelizabethmartinez.com/wp-json/wp/v2/posts/${postToDelete}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,10 +76,17 @@ const PostList = () => {
         }
       );
 
-      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postToDelete));
+      setShowModal(false); // Cierra el modal después de eliminar
+      setPostToDelete(null); // Resetea el post seleccionado para eliminar
     } catch (error) {
       console.error("🚨 Error al eliminar el post:", error.response?.data || error.message);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setShowModal(false); // Cierra el modal sin eliminar
+    setPostToDelete(null); // Resetea el post seleccionado para eliminar
   };
 
   // Mientras se están cargando los posts, mostramos el estado de carga
@@ -86,15 +103,27 @@ const PostList = () => {
             key={post.id}
             post={post}
             onEdit={handleEdit}
-            onDelete={handleDelete}
+            onDelete={handleDeleteRequest} // Cambiado a la nueva función
           />
         ))
       ) : (
         <p>No se encontraron posts.</p>
+      )}
+
+      {/* Modal de confirmación */}
+      {showModal && (
+        <div className={Styles.modal}>
+          <div className={Styles.modalContent}>
+            <p>¿Estás seguro de que deseas eliminar este post?</p>
+            <button onClick={handleDelete} className={Styles.modalButtonYes}>Sí, eliminar</button>
+            <button onClick={handleCancelDelete} className={Styles.modalButtonNo}>Cancelar</button>
+          </div>
+        </div>
       )}
     </div>
   );
 };
 
 export default PostList;
+
 

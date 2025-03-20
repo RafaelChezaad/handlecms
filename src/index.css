@@ -40,7 +40,8 @@ body{
 
 @media screen and (max-width:576px){
   .boxed{
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
   }
   
 }
