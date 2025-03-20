@@ -1,49 +1,112 @@
 .card {
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+  max-width: 380px;
+  width: 90%; /* Se adapta a pantallas más pequeñas */
+  margin: 10px auto; /* Centrar tarjetas */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.body {
+  padding: 0.5rem;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+  filter: brightness(0.9);
+  cursor: pointer;
+  object-fit: cover; /* Mantiene proporciones sin distorsión */
+  transition: all 0.3s ease-in-out; /* Suaviza cualquier cambio */
+}
+
+.image:hover {
+  filter: brightness(1);
+  transform: scale(1.05); /* Un poco menos de escala para que no se vea exagerado */
+}
+
+.title {
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: justify;
+  margin: 0.5rem 0;
+  text-transform: capitalize;
+}
+
+.excerpt {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: justify;
+  font-style: italic;
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+  justify-content: center; /* Mejor distribución en pantallas pequeñas */
+  align-items: center;
+
+}
+
+.editButton, .deleteButton {
+  padding: 8px 20px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 5px;
+  flex: 1; /* Hace que los botones se ajusten mejor en móviles */
+  text-align: center;
+}
+
+.editButton {
+  background-color: #003da5;
+  color: white;
+}
+
+.deleteButton {
+  background-color: #dc1c2c;
+  color: white;
+}
+
+/* ✅ Estilos RESPONSIVE */
+
+/* Para tablets (pantallas medianas) */
+@media (max-width: 768px) {
+  .card {
+      max-width: 95%;
   }
-  
-  .image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  
   .title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 10px 0;
+      font-size: 1rem;
   }
-  
   .excerpt {
-    font-size: 1rem;
-    color: #555;
+      font-size: 0.85rem;
   }
-  
-  .actions {
-    margin-top: 10px;
-  }
-  
   .editButton, .deleteButton {
-    padding: 8px 12px;
-    margin: 5px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
+      padding: 8px 15px;
+      font-size: 0.75rem;
   }
-  
-  .editButton {
-    background-color: #4CAF50;
-    color: white;
+}
+
+/* Para móviles pequeños */
+@media (max-width: 480px) {
+  .card {
+      max-width: 60%;
   }
-  
-  .deleteButton {
-    background-color: #f44336;
-    color: white;
+  .title {
+      font-size: 0.9rem;
   }
-  
+  .excerpt {
+      font-size: 0.8rem;
+  }
+  .editButton, .deleteButton {
+      padding: 6px 12px;
+      font-size: 0.7rem;
+  }
+}

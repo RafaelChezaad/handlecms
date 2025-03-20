@@ -1,0 +1,16 @@
+.header{
+    width: 100%;
+    padding: 1rem;
+    background-color: #eee7e7;
+}
+
+
+.button{
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    font-style: italic;
+    border: 1px solid #00000022;
+    background-color: #003da6;
+    color: white;
+    cursor: pointer;
+}
