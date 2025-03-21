@@ -15,7 +15,6 @@ const EditPost = () => {
   const { id } = useParams();  // Obtener el ID del post desde la URL
   const navigate = useNavigate();  // Para redirigir después de editar
   const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -50,7 +49,6 @@ const EditPost = () => {
         );
         const post = response.data;
         setTitle(post.title.rendered);
-        setSlug(post.slug);
         setContent(post.content.rendered);
         setCategories(post.categories);
         setStatus(post.status);
@@ -82,10 +80,7 @@ const EditPost = () => {
       setError("El título es obligatorio");
       return;
     }
-    if (!slug.trim()) {
-      setError("El slug es obligatorio");
-      return;
-    }
+   
     if (!cleanedContent) {
       setError("El contenido no puede estar vacío");
       return;
@@ -119,7 +114,6 @@ const EditPost = () => {
 
     const postData = {
       title,
-      slug,
       content: cleanedContent,
       status,
       categories,
@@ -134,7 +128,6 @@ const EditPost = () => {
 
       console.log("✅ Post editado:", response.data);
       setTitle("");
-      setSlug("");
       setContent("");
       setImage(null);
       setCategories([]);
@@ -168,16 +161,7 @@ const EditPost = () => {
           />
         </div>
 
-        <div className={Styles.formGroup}>
-          <label className={Styles.title}>Slug</label>
-          <input
-            type="text"
-            value={slug}
-            className={Styles.input}
-            onChange={(e) => setSlug(e.target.value)}
-            required
-          />
-        </div>
+       
 
         <div className={Styles.formGroup}>
           <label className={Styles.title}>Contenido</label>

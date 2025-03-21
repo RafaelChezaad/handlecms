@@ -6,7 +6,6 @@ import Styles from "../css/CreatePost.module.css";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -51,10 +50,7 @@ const CreatePost = () => {
       setError("El título es obligatorio");
       return;
     }
-    if (!slug.trim()) {
-      setError("El slug es obligatorio");
-      return;
-    }
+   
     if (!cleanedContent) {
       setError("El contenido no puede estar vacío");
       return;
@@ -89,7 +85,6 @@ const CreatePost = () => {
   
     const postData = {
       title,
-      slug,
       content: cleanedContent,
       status,
       categories,
@@ -107,7 +102,6 @@ const CreatePost = () => {
   
       console.log("✅ Post creado:", response.data);
       setTitle("");
-      setSlug("");
       setContent("");
       setImage(null);
       setCategories([]);
@@ -141,16 +135,7 @@ const CreatePost = () => {
           />
         </div>
 
-        <div className={Styles.formGroup}>
-          <label className={Styles.title}>Slug</label>
-          <input
-            type="text"
-            value={slug}
-            className={Styles.input}
-            onChange={(e) => setSlug(e.target.value)}
-            required
-          />
-        </div>
+      
 
         <div className={Styles.formGroup}>
           <label className={Styles.title}>Contenido</label>

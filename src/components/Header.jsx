@@ -7,7 +7,7 @@ const Header = () => {
   const handleLogout = () => {
     // Aquí deberías implementar la lógica para cerrar sesión
     localStorage.removeItem("authToken");  // Ejemplo, eliminando el token del localStorage
-    window.location.reload();  // Recarga la página para reflejar el cambio de estado
+    window.location.href ="https://teamelizabethmartinez.com/blog/";  // Recarga la página para reflejar el cambio de estado
   };
 
   return (
