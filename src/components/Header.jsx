@@ -32,13 +32,19 @@ const Header = () => {
               </Link>
             </li>
             <li>
+              <Link to="/create-post" className={styles.navLink}>
+                Crear
+              </Link>
+            </li>
+            <li>
               <Link to="/draft-posts" className={styles.navLink}>
                 Borradores
               </Link>
             </li>
+
             <li>
               <Link to="/deleted-posts" className={styles.navLink}>
-                Borrados
+                Eliminados
               </Link>
             </li>
             <li>
