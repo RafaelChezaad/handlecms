@@ -17,8 +17,8 @@ const Header = () => {
           <img
             src={Logo}
             alt="Teamelizabeth logo"
-            width={200}
-            height={70}
+            width={100}
+            height={75}
             title="Teamelizabeth"
             loading="lazy"
             className={styles.logo}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Logo from "../assets/Logo.webp";
+import Logo from "../assets/Logo.png";
 import Style from "../css/Login.module.css";
 import { useNavigate } from "react-router-dom";
 // import { HiOutlineMail, HiOutlineLockClosed } from "react-icons/hi" fdhgfhfh;
