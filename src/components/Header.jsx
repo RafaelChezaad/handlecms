@@ -20,8 +20,6 @@ const Header = () => {
             width={200}
             height={70}
             title="Teamelizabeth"
-            width={100}
-            height={40}
             loading="lazy"
             className={styles.logo}
           />
