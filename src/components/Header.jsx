@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../css/Header.module.css";
-import Logo from "../assets/Logo.jpg";
+import Logo from "../assets/Logo.webp";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -17,9 +17,11 @@ const Header = () => {
           <img
             src={Logo}
             alt="Teamelizabeth logo"
+            width={200}
+            height={70}
             title="Teamelizabeth"
-           width={100}
-           height={80}
+            width={100}
+            height={40}
             loading="lazy"
             className={styles.logo}
           />
