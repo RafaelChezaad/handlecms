@@ -5,7 +5,8 @@
   padding:7rem;
   box-shadow: 0 0 1em #00000022;
   border-radius: 1em;
-  background-color: #aa9d89;
+  background-color: #A9B8C6;
+  margin-top: 1%;
 }
 .passwordContainer {
     position: relative;
@@ -73,7 +74,6 @@
         padding:2rem;
         box-shadow: 0 0 1em #00000022;
         border-radius: 1em;
-        background-color: #aa9d89;
       }
       .logo{
         width: 100px;
