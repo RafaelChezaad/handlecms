@@ -151,7 +151,23 @@ const CreatePost = () => {
                 ["align", "list", "blockquote"],
                 ["table", "link", "image", "video"],
                 ["removeFormat"],
+                
+
               ],
+              defaultStyle: 'text-align: left;', // Fuerza el alineado a la izquierda
+              formats: [
+                "p",
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6",
+                "blockquote",
+                "pre",
+              ],
+              
+
             }}
           />
         </div>
