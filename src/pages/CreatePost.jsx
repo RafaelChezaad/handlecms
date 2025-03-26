@@ -38,19 +38,22 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Limpiar errores previos
     setError("");
-  
+
     // Remover espacios y etiquetas vacías en el contenido
-    const cleanedContent = content.trim().replace(/<p><br><\/p>/g, "").trim();
-  
+    const cleanedContent = content
+      .trim()
+      .replace(/<p><br><\/p>/g, "")
+      .trim();
+
     // Validación antes de enviar
     if (!title.trim()) {
       setError("El título es obligatorio");
       return;
     }
-   
+
     if (!cleanedContent) {
       setError("El contenido no puede estar vacío");
       return;
@@ -59,7 +62,7 @@ const CreatePost = () => {
       setError("Debe seleccionar al menos una categoría");
       return;
     }
-  
+
     let featuredImageId = null;
     if (image) {
       const formData = new FormData();
@@ -82,7 +85,7 @@ const CreatePost = () => {
         return;
       }
     }
-  
+
     const postData = {
       title,
       content: cleanedContent,
@@ -90,7 +93,7 @@ const CreatePost = () => {
       categories,
       featured_media: featuredImageId,
     };
-  
+
     try {
       const response = await axios.post(
         "https://teamelizabethmartinez.com/wp-json/wp/v2/posts",
@@ -99,7 +102,7 @@ const CreatePost = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-  
+
       console.log("✅ Post creado:", response.data);
       setTitle("");
       setContent("");
@@ -108,9 +111,9 @@ const CreatePost = () => {
       setStatus("publish");
       setError("");
       setSuccessMessage("✅ Post creado exitosamente 🎉");
-  
+
       if (imageInputRef.current) imageInputRef.current.value = "";
-  
+
       setTimeout(() => {
         setSuccessMessage("");
       }, 3000);
@@ -119,7 +122,6 @@ const CreatePost = () => {
       setError("Hubo un error al crear el post");
     }
   };
-  
 
   return (
     <section className={Styles.createPost}>
@@ -134,8 +136,6 @@ const CreatePost = () => {
             className={Styles.input}
           />
         </div>
-
-      
 
         <div className={Styles.formGroup}>
           <label className={Styles.title}>Contenido</label>
@@ -169,16 +169,16 @@ const CreatePost = () => {
         <div className={Styles.formGroup}>
           <label className={Styles.title}>Categorías</label>
           <select
-           
-            value={categories}
-            onChange={(e) =>
-              setCategories(
-                Array.from(e.target.selectedOptions, (option) =>
-                  Number(option.value)
-                )
-              )
-            }
+            value={categories.length === 0 ? "" : categories}
+            onChange={(e) => {
+              const selectedValues = Array.from(
+                e.target.selectedOptions,
+                (option) => Number(option.value)
+              );
+              setCategories(selectedValues.length > 0 ? selectedValues : []); // Si no se selecciona ninguna categoría, se usa un array vacío
+            }}
           >
+            <option value="">Sin categoría</option> {/* Opción por defecto */}
             {allCategories.map((cat) => (
               <option key={cat.id} value={cat.id}>
                 {cat.name}
@@ -196,7 +196,9 @@ const CreatePost = () => {
         </div>
 
         {error && <div className={Styles.error}>{error}</div>}
-        {successMessage && <div className={Styles.success}>{successMessage}</div>}
+        {successMessage && (
+          <div className={Styles.success}>{successMessage}</div>
+        )}
 
         <button type="submit" className={Styles.button}>
           Crear Post

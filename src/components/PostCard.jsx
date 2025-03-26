@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState  } from "react";
 import Styles from "../css/PostCard.module.css";
 
 const PostCard = ({ post, onEdit, onDelete }) => {

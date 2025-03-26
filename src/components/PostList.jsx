@@ -3,7 +3,7 @@ import axios from "axios";
 import PostCard from "./PostCard"; // Componente de card
 import Styles from "../css/PostList.module.css";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
-
+// comenatrio de purba
 const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("authToken"));
@@ -11,6 +11,7 @@ const PostList = () => {
   const [error, setError] = useState(""); // Estado para error
   const [showModal, setShowModal] = useState(false); // Estado para mostrar el modal
   const [postToDelete, setPostToDelete] = useState(null); // Estado para almacenar el post que se va a eliminar
+  const [userId, setUserId] = useState(null); // Nuevo estado para el ID del usuario
   const navigate = useNavigate(); // Usar useNavigate para la navegación
 
   useEffect(() => {
@@ -22,6 +23,17 @@ const PostList = () => {
       }
 
       try {
+        // Obtener el ID del usuario logeado (esto puede depender de tu implementación)
+        const responseUser = await axios.get("https://teamelizabethmartinez.com/wp-json/wp/v2/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        // Almacenar el ID del usuario
+        setUserId(responseUser.data.id);
+
         const response = await fetch(
           "https://teamelizabethmartinez.com/wp-json/wp/v2/posts",
           {
@@ -38,7 +50,10 @@ const PostList = () => {
         }
 
         const postData = await response.json();
-        setPosts(postData);
+
+        // Filtrar los posts por el ID del autor logeado
+        const filteredPosts = postData.filter(post => post.author === responseUser.data.id);
+        setPosts(filteredPosts);
         setLoading(false); // Termina el estado de carga
       } catch (error) {
         console.error(`Error fetching data: ${error.message}`);
@@ -125,5 +140,3 @@ const PostList = () => {
 };
 
 export default PostList;
-
-
