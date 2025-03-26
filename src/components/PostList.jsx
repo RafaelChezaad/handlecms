@@ -3,7 +3,7 @@ import axios from "axios";
 import PostCard from "./PostCard"; // Componente de card
 import Styles from "../css/PostList.module.css";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
-
+// comenatrio de purba
 const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("authToken"));
