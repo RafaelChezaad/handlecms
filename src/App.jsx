@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -13,22 +13,32 @@ const DeletedPosts = lazy(() => import('./pages/DeletedPosts'));
 
 import './App.css';
 
+// Fallback personalizado (Spinner de carga)
+const Loader = () => <div>Cargando...</div>;
+
 function App() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
 
   return (
     <>
-      {!isLoginPage && <Header />}
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/create-post" element={<ProtectedRoute><CreatePost /></ProtectedRoute>} />
-        <Route path="/edit-post/:id" element={<ProtectedRoute><EditPost /></ProtectedRoute>} />
-        <Route path="/draft-posts" element={<ProtectedRoute><DraftPosts /></ProtectedRoute>} />
-        <Route path="/deleted-posts" element={<ProtectedRoute><DeletedPosts /></ProtectedRoute>} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      {!isLoginPage && (
+        <Suspense fallback={<Loader />}>
+          <Header />
+        </Suspense>
+      )}
+
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/create-post" element={<ProtectedRoute><CreatePost /></ProtectedRoute>} />
+          <Route path="/edit-post/:id" element={<ProtectedRoute><EditPost /></ProtectedRoute>} />
+          <Route path="/draft-posts" element={<ProtectedRoute><DraftPosts /></ProtectedRoute>} />
+          <Route path="/deleted-posts" element={<ProtectedRoute><DeletedPosts /></ProtectedRoute>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }
