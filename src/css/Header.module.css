@@ -24,11 +24,12 @@
 .logoutButton{
     border-radius: 0.2rem;
     font-size: 0.9rem;
-    padding: 0.5rem 1rem;
+    padding: 10px 45px 10px 45px;
     background-color: #dc1c2d;
     color: white;
     cursor: pointer;
     font-weight: 600;
+    border: none;
 }
 
 .logoutButton:hover {
