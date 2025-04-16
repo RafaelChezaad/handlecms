@@ -35,7 +35,7 @@ const PostList = () => {
         setUserId(responseUser.data.id);
 
         const response = await fetch(
-          "https://teamelizabethmartinez.com/wp-json/wp/v2/posts",
+          "https://teamelizabethmartinez.com/wp-json/wp/v2/posts?orderby=date&order=desc",
           {
             method: "GET",
             headers: {
